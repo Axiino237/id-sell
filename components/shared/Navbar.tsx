@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, Menu, Search, X } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { SearchBar } from "./SearchBar";
+import { MobileMenu } from "./MobileMenu";
 
 export async function Navbar() {
     const supabase = await createClient();
@@ -24,44 +25,53 @@ export async function Navbar() {
     return (
         <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl">
             <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4 max-w-7xl">
-                <Link href="/" className="flex items-center gap-2 flex-shrink-0">
-                    <div className="h-8 w-8 rounded-lg bg-primary/20 flex items-center justify-center">
-                        <span className="font-bold text-primary text-xl">A</span>
-                    </div>
-                    <span className="text-xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent hidden sm:inline-block">
-                        AntyGravity
-                    </span>
-                </Link>
+                <div className="flex items-center gap-4">
+                    <MobileMenu user={user} role={role} dashboardHref={dashboardHref} />
 
-                {/* Search Bar */}
+                    <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+                        <div className="h-8 w-8 rounded-lg bg-primary/20 flex items-center justify-center">
+                            <span className="font-bold text-primary text-xl">A</span>
+                        </div>
+                        <span className="text-xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                            AntyGravity
+                        </span>
+                    </Link>
+                </div>
+
+                {/* Search Bar - Desktop */}
                 <div className="hidden md:flex flex-1 max-w-md">
                     <SearchBar />
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
                     <Link
                         href="/products"
-                        className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg text-muted-foreground hover:text-white hover:bg-secondary/50 transition-colors text-sm"
+                        className="hidden xs:flex items-center gap-2 px-3 py-2 rounded-lg text-muted-foreground hover:text-white hover:bg-secondary/50 transition-colors text-sm"
                     >
                         <ShoppingBag className="h-4 w-4" />
-                        Browse
+                        <span className="hidden sm:inline">Browse</span>
                     </Link>
                     {user ? (
                         <Link
                             href={dashboardHref}
-                            className="px-4 py-2 rounded-lg bg-primary/10 text-primary font-medium hover:bg-primary/20 transition-colors text-sm"
+                            className="px-3 sm:px-4 py-2 rounded-lg bg-primary/10 text-primary font-medium hover:bg-primary/20 transition-colors text-sm"
                         >
                             Dashboard
                         </Link>
                     ) : (
                         <Link
                             href="/login"
-                            className="px-4 py-2 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors text-sm shadow-lg shadow-primary/20"
+                            className="px-3 sm:px-4 py-2 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors text-sm shadow-lg shadow-primary/20"
                         >
                             Login
                         </Link>
                     )}
                 </div>
+            </div>
+
+            {/* Search Bar - Mobile (only visible on small screens) */}
+            <div className="md:hidden border-t border-border/40 px-4 py-2 bg-background/50">
+                <SearchBar />
             </div>
         </header>
     );

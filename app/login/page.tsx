@@ -5,10 +5,12 @@ import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { getURL } from "@/utils/utils";
 
 export default function LoginPage() {
     const supabase = createClient();
     const router = useRouter();
+    const redirectTo = `${getURL()}auth/callback`;
 
     useEffect(() => {
         const checkUser = async () => {
@@ -102,7 +104,7 @@ export default function LoginPage() {
                         }}
                         theme="dark"
                         providers={[]}
-                        redirectTo={`${typeof window !== 'undefined' ? window.location.origin : ''}/auth/callback`}
+                        redirectTo={redirectTo}
                         showLinks={true}
                     />
                 </div>

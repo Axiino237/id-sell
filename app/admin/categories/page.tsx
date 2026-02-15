@@ -108,7 +108,7 @@ export default async function AdminCategoriesPage() {
                                         >
                                             <button
                                                 type="submit"
-                                                className="p-2 rounded-lg hover:bg-red-500/10 text-muted-foreground hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100"
+                                                className="p-2 rounded-lg hover:bg-red-500/10 text-muted-foreground hover:text-red-400 transition-colors"
                                                 title="Delete"
                                             >
                                                 <Trash2 className="h-4 w-4" />

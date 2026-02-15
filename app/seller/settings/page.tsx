@@ -1,7 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { User, Phone, Save, CheckCircle2 } from "lucide-react";
 import { revalidatePath } from "next/cache";
-import { appendFileSync } from "fs";
 
 export default async function SellerSettingsPage() {
     const supabase = await createClient();
@@ -35,29 +34,21 @@ export default async function SellerSettingsPage() {
         "use server";
         const name = formData.get("name") as string;
         const whatsapp_number = formData.get("whatsapp_number") as string;
-        const logPath = "c:\\wone_work\\id sell\\save_log.txt";
-
-        const logEntry = `[${new Date().toISOString()}] Attempting update: name="${name}", whatsapp="${whatsapp_number}"\n`;
-        appendFileSync(logPath, logEntry);
 
         const supabase = await createClient();
         const { data: { user } } = await supabase.auth.getUser();
 
         if (user) {
-            appendFileSync(logPath, `[${new Date().toISOString()}] Updating for User ID: ${user.id}\n`);
             const { error } = await supabase
                 .from("users")
                 .update({ name, whatsapp_number })
                 .eq("id", user.id);
 
             if (error) {
-                appendFileSync(logPath, `[${new Date().toISOString()}] Update Error: ${error.message}\n`);
+                console.error("Error updating profile:", error.message);
             } else {
-                appendFileSync(logPath, `[${new Date().toISOString()}] Update Successful\n`);
                 revalidatePath("/seller/settings");
             }
-        } else {
-            appendFileSync(logPath, `[${new Date().toISOString()}] No user session found\n`);
         }
     }
 
@@ -130,10 +121,10 @@ export default async function SellerSettingsPage() {
             {/* Account Info Card */}
             <div className="glass-card rounded-xl p-6 border border-white/10 bg-white/5">
                 <h3 className="text-sm font-semibold text-white mb-4 uppercase tracking-wider">Account Details</h3>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
                         <p className="text-xs text-muted-foreground">Email Address</p>
-                        <p className="text-sm text-white font-medium">{user?.email}</p>
+                        <p className="text-sm text-white font-medium break-all">{user?.email}</p>
                     </div>
                     <div className="space-y-1">
                         <p className="text-xs text-muted-foreground">Account Status</p>

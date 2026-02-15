@@ -106,7 +106,7 @@ export default async function AdminUsersPage() {
                                         {new Date(user.created_at).toLocaleDateString()}
                                     </td>
                                     <td className="px-6 py-4 text-right">
-                                        <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <div className="flex justify-end gap-2 transition-opacity">
                                             {user.status === 'inactive' ? (
                                                 <AdminActionForm
                                                     action={toggleUserStatus}
