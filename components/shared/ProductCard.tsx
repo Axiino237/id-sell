@@ -82,7 +82,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
                             {formattedDate}
                         </span>
                         <a
-                            href={product.users?.whatsapp_number ? getWhatsAppLink(product.users.whatsapp_number, `Hi, I'm interested in "${product.title}" listed on AntyGravity for $${product.price}`) : '#'}
+                            href={product.users?.whatsapp_number ? getWhatsAppLink(product.users.whatsapp_number, `Hi, I'm interested in "${product.title}" listed on Games ID Sell for $${product.price}`) : '#'}
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={(e) => {

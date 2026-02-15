@@ -130,7 +130,7 @@ export default async function Home() {
 
       <footer className="border-t border-border py-12 bg-card/30">
         <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p>© 2026 AntyGravity. All rights reserved.</p>
+          <p>© 2026 Games ID Sell. All rights reserved.</p>
         </div>
       </footer>
     </div>

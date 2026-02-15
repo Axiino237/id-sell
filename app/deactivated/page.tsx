@@ -30,7 +30,7 @@ export default function DeactivatedPage() {
 
                 <div className="space-y-4">
                     <a
-                        href="mailto:support@antygravity.com"
+                        href="mailto:axiino237@gmail.com"
                         className="flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 font-semibold text-white hover:bg-secondary/80 transition-colors"
                     >
                         <Mail className="h-5 w-5" />
@@ -48,7 +48,7 @@ export default function DeactivatedPage() {
             </div>
 
             <p className="mt-8 text-xs text-muted-foreground/50">
-                &copy; 2026 AntyGravity. All rights reserved.
+                &copy; 2026 Games ID Sell. All rights reserved.
             </p>
         </div>
     );

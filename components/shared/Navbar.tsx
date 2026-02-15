@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ShoppingBag, Menu, Search, X } from "lucide-react";
+import { ShoppingBag, Menu, Search, X, Gamepad2 } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { SearchBar } from "./SearchBar";
 import { MobileMenu } from "./MobileMenu";
@@ -30,10 +30,10 @@ export async function Navbar() {
 
                     <Link href="/" className="flex items-center gap-2 flex-shrink-0">
                         <div className="h-8 w-8 rounded-lg bg-primary/20 flex items-center justify-center">
-                            <span className="font-bold text-primary text-xl">A</span>
+                            <Gamepad2 className="h-5 w-5 text-primary" />
                         </div>
                         <span className="text-xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                            AntyGravity
+                            Games ID Sell
                         </span>
                     </Link>
                 </div>

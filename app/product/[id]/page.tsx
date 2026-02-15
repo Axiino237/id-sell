@@ -29,8 +29,8 @@ export async function generateMetadata(
     const previousImages = (await parent).openGraph?.images || []
 
     return {
-        title: `${product.title} | AntyGravity`,
-        description: product.description || "Buy this great product on AntyGravity!",
+        title: `${product.title} | Games ID Sell`,
+        description: product.description || "Buy this game ID on Games ID Sell!",
         openGraph: {
             images: [product.images?.[0] || "", ...previousImages],
         },
@@ -56,7 +56,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
 
     const seller = product.users;
-    const whatsappMessage = `Hi, I'm interested in "${product.title}" listed on AntyGravity for $${product.price}. Is it still available? Link: https://antygravity.com/product/${product.id}`;
+    const whatsappMessage = `Hi, I'm interested in "${product.title}" listed on Games ID Sell for $${product.price}. Is it still available? Link: https://gamesidsell.com/product/${product.id}`;
     const whatsappLink = getWhatsAppLink(seller?.whatsapp_number || "", whatsappMessage);
 
     return (

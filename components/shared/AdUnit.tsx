@@ -29,7 +29,7 @@ export function AdUnit({ slotId, format = "auto", className = "" }: AdUnitProps)
             <ins
                 className="adsbygoogle"
                 style={{ display: "block" }}
-                data-ad-client="ca-pub-XXXXXXXXXXXXXXX" // Replace with real ID
+                data-ad-client="ca-pub-4776704024331789"
                 data-ad-slot={slotId}
                 data-ad-format={format}
                 data-full-width-responsive="true"

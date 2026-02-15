@@ -50,7 +50,7 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
                                 <span className="font-bold text-primary text-xl">A</span>
                             </div>
                             <span className="text-xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                                AntyGravity
+                                Admin Panel
                             </span>
                         </div>
                         <button
