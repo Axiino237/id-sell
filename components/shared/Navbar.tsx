@@ -1,0 +1,68 @@
+import Link from "next/link";
+import { ShoppingBag } from "lucide-react";
+import { createClient } from "@/utils/supabase/server";
+import { SearchBar } from "./SearchBar";
+
+export async function Navbar() {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    let role = user?.user_metadata?.role;
+
+    // Fallback: If role is not in metadata, fetch from users table
+    if (user && !role) {
+        const { data: userData } = await supabase
+            .from('users')
+            .select('role')
+            .eq('id', user.id)
+            .single();
+        role = userData?.role;
+    }
+
+    const dashboardHref = role === 'admin' ? '/admin' : role === 'seller' ? '/seller' : '/';
+
+    return (
+        <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl">
+            <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4 max-w-7xl">
+                <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+                    <div className="h-8 w-8 rounded-lg bg-primary/20 flex items-center justify-center">
+                        <span className="font-bold text-primary text-xl">A</span>
+                    </div>
+                    <span className="text-xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent hidden sm:inline-block">
+                        AntyGravity
+                    </span>
+                </Link>
+
+                {/* Search Bar */}
+                <div className="hidden md:flex flex-1 max-w-md">
+                    <SearchBar />
+                </div>
+
+                <div className="flex items-center gap-3">
+                    <Link
+                        href="/products"
+                        className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg text-muted-foreground hover:text-white hover:bg-secondary/50 transition-colors text-sm"
+                    >
+                        <ShoppingBag className="h-4 w-4" />
+                        Browse
+                    </Link>
+                    {user ? (
+                        <Link
+                            href={dashboardHref}
+                            className="px-4 py-2 rounded-lg bg-primary/10 text-primary font-medium hover:bg-primary/20 transition-colors text-sm"
+                        >
+                            Dashboard
+                        </Link>
+                    ) : (
+                        <Link
+                            href="/login"
+                            className="px-4 py-2 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors text-sm shadow-lg shadow-primary/20"
+                        >
+                            Login
+                        </Link>
+                    )}
+                </div>
+            </div>
+        </header>
+    );
+}
