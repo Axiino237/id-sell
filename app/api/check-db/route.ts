@@ -43,7 +43,7 @@ export async function GET() {
                 bucket_exists: !!productsBucket,
                 public: productsBucket?.public,
                 all_buckets: buckets?.map(b => ({ id: b.id, name: b.name })),
-                error: bucketError ? { message: bucketError.message, code: bucketError.code } : null
+                error: bucketError ? { message: bucketError?.message } : null
             }
         });
     } catch (err: any) {
