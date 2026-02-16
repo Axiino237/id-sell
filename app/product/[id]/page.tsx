@@ -6,6 +6,8 @@ import { MessageCircle, ShieldCheck, Share2 } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Metadata, ResolvingMetadata } from "next";
+import { getURL } from "@/utils/utils";
+
 
 type Props = {
     params: { id: string }
@@ -56,7 +58,8 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
 
     const seller = product.users;
-    const whatsappMessage = `Hi, I'm interested in "${product.title}" listed on Games ID Sell for $${product.price}. Is it still available? Link: https://gamesidsell.com/product/${product.id}`;
+    const siteUrl = getURL();
+    const whatsappMessage = `Hi, I'm interested in "${product.title}" listed on Games ID Sell for $${product.price}. Is it still available? Link: ${siteUrl}product/${product.id}`;
     const whatsappLink = getWhatsAppLink(seller?.whatsapp_number || "", whatsappMessage);
 
     return (

@@ -133,6 +133,11 @@ create policy "Admins can delete any product"
   on public.products for delete
   using ((auth.jwt() -> 'user_metadata' ->> 'role') = 'admin');
 
+drop policy if exists "Sellers can delete own products" on public.products;
+create policy "Sellers can delete own products"
+  on public.products for delete
+  using (auth.uid() = seller_id);
+
 -- PROMOTION REQUESTS
 drop policy if exists "Sellers can view own promotion requests" on public.promotion_requests;
 create policy "Sellers can view own promotion requests"

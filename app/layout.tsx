@@ -27,6 +27,8 @@ export const metadata: Metadata = {
   description: "The next generation of buying and selling game IDs.",
 };
 
+import { Footer } from "@/components/shared/Footer";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -42,13 +44,16 @@ export default function RootLayout({
         ></script>
       </head>
       <body
-        className={`${outfit.variable} antialiased bg-background text-foreground`}
+        className={`${outfit.variable} antialiased bg-background text-foreground min-h-screen flex flex-col`}
       >
         <amp-auto-ads
           type="adsense"
           data-ad-client="ca-pub-4776704024331789"
         />
-        {children}
+        <div className="flex-1">
+          {children}
+        </div>
+        <Footer />
       </body>
     </html>
   );

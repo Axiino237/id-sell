@@ -22,19 +22,35 @@ export default async function SellerProductsPage() {
     async function deleteProduct(formData: FormData) {
         "use server";
         const id = formData.get("id") as string;
+        console.log(`[DELETE] Attempting to delete product ${id}`);
+
         const supabase = await createClient();
         const { data: { user } } = await supabase.auth.getUser();
 
-        if (!user) return;
+        if (!user) {
+            console.error("[DELETE] No authenticated user found");
+            return;
+        }
 
-        // Delete only if owned by current user
-        await supabase
+        // Use admin client to bypass RLS, but still verify ownership
+        const { createAdminClient } = await import("@/utils/supabase/admin");
+        const adminSupabase = createAdminClient();
+
+        console.log(`[DELETE] User ${user.id} requesting delete for ${id}`);
+
+        const { error, data } = await adminSupabase
             .from("products")
             .delete()
             .eq("id", id)
-            .eq("seller_id", user.id);
+            .eq("seller_id", user.id)
+            .select();
 
-        revalidatePath("/seller/products");
+        if (error) {
+            console.error(`[DELETE] Error deleting product ${id}:`, error.message);
+        } else {
+            console.log(`[DELETE] Successfully deleted product ${id}. Rows affected: ${data?.length}`);
+            revalidatePath("/seller/products");
+        }
     }
 
     async function requestPromotion(formData: FormData) {
